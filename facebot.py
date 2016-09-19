@@ -4,10 +4,10 @@ import requests
 import json
 import sys
 """
-Ol·!
-Facebot È uma proposta para melhorar o atendimento de pequenas e medias empresas ao publico
-usando a API GRAPH do Facebook, podemos automatizar aÁıes comuns de usu·rio, agilizando o precesso de atendimento
-O Facebot tambÈm conta com o monitoramento de p·ginas, grupos e perfil, isso para evitar os 'tempos mortos' e
+Ol√°!
+Facebot √© uma proposta para melhorar o atendimento de pequenas e medias empresas ao publico
+usando a API GRAPH do Facebook, podemos automatizar a√ß√µes comuns de usu√°rio, agilizando o precesso de atendimento
+O Facebot tamb√©m conta com o monitoramento de p√°ginas, grupos e perfil, isso para evitar os 'tempos mortos' e
 gerar respostas em tempo real!
 Inicialmente o prejeto conta as seguinetes funcionalidades:
 
@@ -16,7 +16,7 @@ Inicialmente o prejeto conta as seguinetes funcionalidades:
           |        |--> curte objetos
           |
 metodo----[ GET ]  |--> retorna postagem no feed
-          |        |--> retorna coment·rios
+          |        |--> retorna coment√°rios
           |        |--> retorna todas as curtidas em objetos
           |
           [ DELETE] |--> remove qualquer objeto
@@ -43,17 +43,10 @@ class usr_api(object):
     
     def __init__(self,token='necessario em toda chamada de uma API,seja para receber ou enviar dados',v='2.7'):
         self.token = token
-
-        if v not in self.v:
-            msg = "sem suporte para versao "+v
-            sys.stderr.write(msg)
-            print
-            return  0
-
         self.v = v
         access_token = 'access_token='+self.token
         self.__url = 'https://graph.facebook.com/v'+v+"/"+self.no+"?"+access_token
-        """inicia o bot com o token de acesso e a vers„o da api"""
+        """inicia o bot com o token de acesso e a vers√£o da api"""
 
     def hello_wolrd(self):
         """considerado o metodo mais basido da API, apenas retorna seus dados comuns"""
@@ -63,7 +56,7 @@ class usr_api(object):
         return self.__requests__(method='get')
 
     def __requests__(self,method,data=''):
-        """ motor de processamento das requisiÁıes """
+        """ motor de processamento das requisi√ß√µes """
         try:
             if method.lower() == 'post':
                 resp = requests.post(url=self.__url,data=data)
@@ -109,7 +102,7 @@ class usr_api(object):
         self.no = 'me'
         albums = {}
         access_token = 'access_token='+self.token
-        """ toda chamada a qualquer metodo do bot È feita uma adaptaÁ„o da url"""
+        """ toda chamada a qualquer metodo do bot √© feita uma adapta√ß√£o da url"""
         self.__url = 'https://graph.facebook.com/v'+self.v+"/"+self.no+"/"+self.bordas+"?"+access_token
         
         data = self.__requests__(method='get')
@@ -135,7 +128,7 @@ class usr_api(object):
         return self.__requests__(method='post',data=data)
     
     def curtir(self,no):
-        """ recebe um id e curte, retorna o id da aÁ„o """
+        """ recebe um id e curte, retorna o id da a√ß√£o """
         access_token = 'access_token='+self.token
         self.__url = 'https://graph.facebook.com/v'+self.v+"/"+no+"/likes?"+access_token
         
@@ -149,7 +142,7 @@ class usr_api(object):
         return self.__requests__(method='delete')
     
     def delete(self,no):
-        """ recebe um id, removo o no do grafo, retorna o staus da aÁ„o"""
+        """ recebe um id, removo o no do grafo, retorna o staus da a√ß√£o"""
         access_token = 'access_token='+self.token
         self.no = no
         self.__url = 'https://graph.facebook.com/v'+self.v+"/"+self.no+"/?"+access_token
@@ -157,7 +150,7 @@ class usr_api(object):
         return self.__requests__(method='delete')
     
     def get_comments(self,object_id, responder_todos=False,message='Obrigado!'):
-        """ recebe um id e retorna a lista de coment·rios, responde todos de ums vez, caso seja passado True no resp.todos com a msg"""
+        """ recebe um id e retorna a lista de coment√°rios, responde todos de ums vez, caso seja passado True no resp.todos com a msg"""
         self.no = object_id
         self.bordas = 'comments'
         access_token = 'access_token='+self.token
